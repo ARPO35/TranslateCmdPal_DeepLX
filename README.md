@@ -1,13 +1,13 @@
 # TranslateCmdPal (DeepLX Version)
 
 > [!IMPORTANT]
-> **This is a fork of [TranslateCmdPal](https://github.com/patcher454/DeepLTranslatorPowerToys).**
+> **This is a fork of [TranslateCmdPal](https://github.com/patcher454/TranslateCmdPal).**
 >
 > 🚧 **Work In Progress**: This project is currently under active development. Features may change, and bugs are to be expected.
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
-TranslateCmdPal is the command palette version of [DeepLTranslatorPowerToys](https://github.com/patcher454/DeepLTranslatorPowerToys), modified to utilize **DeepLX** as the translation backend.
+This project is a modified version of [TranslateCmdPal](https://github.com/patcher454/TranslateCmdPal) that replaces the official DeepL API with **DeepLX** support.
 
 Seamlessly translate text directly from the PowerToys command palette using your own DeepLX instance, free from official API key limits.
 
