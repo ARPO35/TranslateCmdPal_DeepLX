@@ -1,36 +1,48 @@
-# TranslateCmdPal
+# TranslateCmdPal (DeepLX Version)
+
+> [!IMPORTANT]
+> **This is a fork of [TranslateCmdPal](https://github.com/patcher454/DeepLTranslatorPowerToys).**
+>
+> 🚧 **Work In Progress**: This project is currently under active development. Features may change, and bugs are to be expected.
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
-TranslateCmdPal is the command palette version of [DeepLTranslatorPowerToys](https://github.com/patcher454/DeepLTranslatorPowerToys).
+TranslateCmdPal is the command palette version of [DeepLTranslatorPowerToys](https://github.com/patcher454/DeepLTranslatorPowerToys), modified to utilize **DeepLX** as the translation backend.
 
-Seamlessly translate text directly from the PowerToys command palette.
+Seamlessly translate text directly from the PowerToys command palette using your own DeepLX instance, free from official API key limits.
 
 <img width="821" height="506" alt="Extension Introduce" src="https://github.com/user-attachments/assets/7b439b37-7d0e-4e09-acf9-666c097be616" />
 
 ## ✨ Features
 
 -   **Instant Translation**: Translate text directly from the **Command Palette** (`Win` + `Alt` + `Space`).
+-   **DeepLX Integration**: Uses DeepLX for unlimited translations without an official DeepL Pro/Free API key.
 -   **Clipboard Ready**: The translated text is copied to your clipboard, ready to be pasted with `Ctrl + V`.
 -   **Translation History**: View your past translations and copy them again directly from the **Command Palette** window.
 -   **Default Language**: Set a default target language to avoid typing the language code every time.
--   **Broad Language Support**: Utilizes all languages supported by the DeepL API.
+-   **Broad Language Support**: Utilizes all languages supported by DeepL.
 
 ## ⚙️ Prerequisites
 
 Before you begin, ensure you have the following:
 
 1.  **PowerToys**: A set of utilities for Windows power users. [Install it from here](https://learn.microsoft.com/en-us/windows/powertoys/install).
-2.  **DeepL API Key**: An authentication key to use the DeepL translation service.
-    -   Sign up [DeepL API page](https://www.deepl.com/pro-api?cta=header-pro-api).
-    -   Find your **Authentication Key** on your [DeepL Account page](https://www.deepl.com/your-account/keys).
+2.  **DeepLX Instance**: You need a running DeepLX service.
+    -   You can host it yourself via Docker (Recommended): [OwO-Network/DeepLX](https://github.com/OwO-Network/DeepLX).
+    -   Or use a public DeepLX endpoint (if available).
+    -   *Standard local endpoint example:* `http://127.0.0.1:1188/translate`
 
 ## 🚀 Installation & Setup
 
 1.  **Install the Plugin**
-    -   Download and install TranslateCmdPal from the [Microsoft Store](https://apps.microsoft.com/detail/9P02SXVHRJV8).
+    -   Download and install the latest release of this modified TranslateCmdPal.
 
-2.  **Configure API Key and Settings**
+2.  **Configure DeepLX Endpoint**
+    -   Open the plugin settings in PowerToys.
+    -   Locate the **DeepLX Endpoint** field (formerly API Key).
+    -   Enter your DeepLX API URL (e.g., `http://127.0.0.1:1188/translate`).
+    
+    *(Note: Screenshots below show the original interface, please look for the Endpoint/URL configuration in the actual settings)*
     <img width="781" height="82" alt="image" src="https://github.com/user-attachments/assets/45ded910-1c11-4f85-a1e6-c7075370e77e" /> 
     <img width="780" height="471" alt="image" src="https://github.com/user-attachments/assets/e59781b7-7155-4a4e-a9bd-ee670a9d6a9a" />
 
@@ -56,7 +68,7 @@ Before you begin, ensure you have the following:
 
 ## 🌐 Supported Languages and Codes
 
-This is a list of languages supported by the DeepL API.
+This is a list of languages supported by DeepL (via DeepLX).
 
 | Code | Language | Code | Language |
 | :--- | :--- | :--- | :--- |
