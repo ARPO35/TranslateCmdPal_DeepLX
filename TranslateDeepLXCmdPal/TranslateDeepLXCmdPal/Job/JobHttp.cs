@@ -35,7 +35,8 @@ namespace TranslateDeepLXCmdPal.Job
                     {
                         object body = new
                         {
-                            text = new string[] { text },
+                            text,
+                            source_lang = "AUTO",
                             target_lang = LangCode.ToString(targetCode)
                         };
 
@@ -108,7 +109,7 @@ namespace TranslateDeepLXCmdPal.Job
                     new TranslationDTO
                     {
                         DetectedSourceLanguage = string.IsNullOrWhiteSpace(result.SourceLang)
-                            ? LangCode.ToString(LangCode.Code.UNK)
+                            ? "AUTO"
                             : result.SourceLang,
                         Text = result.Data ?? string.Empty
                     }
