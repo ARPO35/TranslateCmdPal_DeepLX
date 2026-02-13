@@ -5,10 +5,11 @@ using Microsoft.CommandPalette.Extensions.Toolkit;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text.Json.Nodes;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace TranslateCmdPal.Util
 {
@@ -31,11 +32,10 @@ namespace TranslateCmdPal.Util
         ];
 
         private static readonly List<ChoiceSetSetting.Choice> _targetLangChoices =
-            System.Enum.GetValues(typeof(LangCode.Code))
-            .Cast<LangCode.Code>()
+            System.Enum.GetValues<LangCode.Code>()
             .Select(lang => new ChoiceSetSetting.Choice(
-                lang.ToString(),
-                ((int)lang).ToString())
+                LangCode.ToString(lang),
+                ((int)lang).ToString(CultureInfo.InvariantCulture))
             ).ToList();
 
         private readonly ChoiceSetSetting _showHistory = new(
@@ -93,7 +93,9 @@ namespace TranslateCmdPal.Util
                 if (File.Exists(_historyPath))
                 {
                     var existingContent = File.ReadAllText(_historyPath);
-                    historyItems = JsonSerializer.Deserialize<List<TranslationEntity>>(existingContent) ?? [];
+                    historyItems = JsonSerializer.Deserialize(
+                        existingContent,
+                        TranslationJsonSerializerContext.Default.ListTranslationEntity) ?? [];
                 }
                 else
                 {
@@ -112,7 +114,9 @@ namespace TranslateCmdPal.Util
                     }
                 }
 
-                var historyJson = JsonSerializer.Serialize(historyItems);
+                var historyJson = JsonSerializer.Serialize(
+                    historyItems,
+                    TranslationJsonSerializerContext.Default.ListTranslationEntity);
                 File.WriteAllText(_historyPath, historyJson);
             }
             catch (Exception ex)
@@ -131,7 +135,9 @@ namespace TranslateCmdPal.Util
                 }
 
                 var fileContent = File.ReadAllText(_historyPath);
-                var historyItems = JsonSerializer.Deserialize<List<TranslationEntity>>(fileContent) ?? [];
+                var historyItems = JsonSerializer.Deserialize(
+                    fileContent,
+                    TranslationJsonSerializerContext.Default.ListTranslationEntity) ?? [];
 
                 var listItems = new List<ListItem>();
                 foreach (var historyItem in historyItems)
@@ -275,7 +281,9 @@ namespace TranslateCmdPal.Util
                     if (File.Exists(_historyPath))
                     {
                         var existingContent = File.ReadAllText(_historyPath);
-                        var historyItems = JsonSerializer.Deserialize<List<TranslationEntity>>(existingContent) ?? [];
+                        var historyItems = JsonSerializer.Deserialize(
+                            existingContent,
+                            TranslationJsonSerializerContext.Default.ListTranslationEntity) ?? [];
 
                         historyItems = historyItems.DistinctBy(x => x.TranslatedText).ToList();
 
@@ -283,7 +291,9 @@ namespace TranslateCmdPal.Util
                         {
                             historyItems = historyItems.Skip(historyItems.Count - maxHistoryItems).ToList();
 
-                            var trimmedHistoryJson = JsonSerializer.Serialize(historyItems);
+                            var trimmedHistoryJson = JsonSerializer.Serialize(
+                                historyItems,
+                                TranslationJsonSerializerContext.Default.ListTranslationEntity);
                             File.WriteAllText(_historyPath, trimmedHistoryJson);
                         }
                     }

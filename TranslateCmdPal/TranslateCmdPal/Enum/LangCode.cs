@@ -13,8 +13,8 @@ namespace TranslateCmdPal.Enums
             DE,      // German
             EL,      // Greek
             EN,      // English (unspecified variant for backward compatibility; please select EN-GB or EN-US instead)
-            EN_GB,   // English (British)
-            EN_US,   // English (American)
+            ENGB,    // English (British)
+            ENUS,    // English (American)
             ES,      // Spanish
             ET,      // Estonian
             FI,      // Finnish
@@ -30,8 +30,8 @@ namespace TranslateCmdPal.Enums
             NL,      // Dutch
             PL,      // Polish
             PT,      // Portuguese (unspecified variant for backward compatibility; please select PT-BR or PT-PT instead)
-            PT_BR,   // Portuguese (Brazilian)
-            PT_PT,   // Portuguese (all Portuguese varieties excluding Brazilian Portuguese)
+            PTBR,    // Portuguese (Brazilian)
+            PTPT,    // Portuguese (all Portuguese varieties excluding Brazilian Portuguese)
             RO,      // Romanian
             RU,      // Russian
             SK,      // Slovak
@@ -60,25 +60,25 @@ namespace TranslateCmdPal.Enums
                 case "GB":
                 case "EN-GB":
                 case "EN_GB":
-                    return Code.EN_GB;
+                    return Code.ENGB;
 
                 case "us":
                 case "US":
                 case "EN-US":
                 case "EN_US":
-                    return Code.EN_US;
+                    return Code.ENUS;
 
                 case "br":
                 case "BR":
                 case "PT-BR":
                 case "PT_BR":
-                    return Code.PT_BR;
+                    return Code.PTBR;
 
                 case "pt":
                 case "PT":
                 case "PT-PT":
                 case "PT_PT":
-                    return Code.PT_PT;
+                    return Code.PTPT;
                 default:
                     try
                     {
@@ -95,13 +95,13 @@ namespace TranslateCmdPal.Enums
         {
             switch (code)
             {
-                case Code.EN_GB:
+                case Code.ENGB:
                     return "EN-GB";
-                case Code.EN_US:
+                case Code.ENUS:
                     return "EN-US";
-                case Code.PT_BR:
+                case Code.PTBR:
                     return "PT-BR";
-                case Code.PT_PT:
+                case Code.PTPT:
                     return "PT-PT";
                 default:
                     return code.ToString();
