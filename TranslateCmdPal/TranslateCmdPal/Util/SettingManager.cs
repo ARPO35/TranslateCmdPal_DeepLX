@@ -48,17 +48,17 @@ namespace TranslateCmdPal.Util
             Properties.Resource.plugin_default_target_language_code_description,
             _targetLangChoices);
 
-        private readonly TextSetting _apiKey = new(
-            Namespaced(nameof(DeepLAPIKey)),
-            Properties.Resource.plugin_deepL_api_key,
-            Properties.Resource.plugin_deepL_api_key,
-            "DeepL-Auth-Key {API KEY}");
+        private readonly TextSetting _deepLxEndpoint = new(
+            Namespaced(nameof(DeepLXEndpoint)),
+            Properties.Resource.plugin_deepLX_endpoint,
+            Properties.Resource.plugin_deepLX_endpoint,
+            "http://127.0.0.1:1188/translate");
 
         public string ShowHistory => _showHistory.Value ?? string.Empty;
 
         public string DefaultTargetLang => _targetLang.Value ?? string.Empty;
 
-        public string DeepLAPIKey => _apiKey.Value ?? string.Empty;
+        public string DeepLXEndpoint => _deepLxEndpoint.Value ?? string.Empty;
 
 
         internal static string SettingsJsonPath()
@@ -182,7 +182,7 @@ namespace TranslateCmdPal.Util
 
             Settings.Add(_showHistory);
             Settings.Add(_targetLang);
-            Settings.Add(_apiKey);
+            Settings.Add(_deepLxEndpoint);
 
             LoadSettings();
 

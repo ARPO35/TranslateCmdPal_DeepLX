@@ -133,22 +133,22 @@ namespace TranslateCmdPal.Properties {
         }
         
         /// <summary>
-        ///   Invalid API key. Please check the API key과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   Invalid DeepLX endpoint. Please check the endpoint URL과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string invalid_api_key {
+        internal static string invalid_endpoint {
             get {
-                return ResourceManager.GetString("invalid_api_key", resourceCulture);
+                return ResourceManager.GetString("invalid_endpoint", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   DeepL API Key
-        ///Please enter the following format
-        ///DeepL-Auth-Key {API KEY}과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   DeepLX Endpoint
+        ///Please enter your DeepLX translate URL
+        ///Example: http://127.0.0.1:1188/translate과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string plugin_deepL_api_key {
+        internal static string plugin_deepLX_endpoint {
             get {
-                return ResourceManager.GetString("plugin_deepL_api_key", resourceCulture);
+                return ResourceManager.GetString("plugin_deepLX_endpoint", resourceCulture);
             }
         }
         
