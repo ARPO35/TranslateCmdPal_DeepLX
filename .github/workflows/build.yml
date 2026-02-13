@@ -26,4 +26,4 @@ jobs:
         run: dotnet restore TranslateCmdPal/TranslateCmdPal.sln
 
       - name: Build (Release)
-        run: dotnet build TranslateCmdPal/TranslateCmdPal.sln --configuration Release --no-restore
+        run: dotnet build TranslateCmdPal/TranslateCmdPal.sln --configuration Release --no-restore -p:PublishSingleFile=false

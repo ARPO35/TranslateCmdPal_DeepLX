@@ -14,6 +14,7 @@ namespace TranslateCmdPal.Job
     {
         private static HttpClient? httpClient;
         private static string? oldEndpoint;
+        private static bool hasInvalidEndpoint;
         private const int MaxRetries = 3;
         private const int InitialRetryDelayMs = 1000;
         private static readonly Random Random = new Random();
@@ -24,6 +25,11 @@ namespace TranslateCmdPal.Job
             if (httpClient == null || oldEndpoint != endpoint)
             {
                 Init(endpoint);
+            }
+
+            if (hasInvalidEndpoint)
+            {
+                return CreateErrorResult(Properties.Resource.invalid_endpoint, targetCode);
             }
 
             if (httpClient != null)
@@ -151,6 +157,7 @@ namespace TranslateCmdPal.Job
         private static void Init(string endpoint)
         {
             oldEndpoint = endpoint;
+            hasInvalidEndpoint = false;
 
             string finalEndpoint = string.IsNullOrWhiteSpace(endpoint)
                 ? DefaultDeepLXEndpoint
@@ -159,6 +166,7 @@ namespace TranslateCmdPal.Job
             if (!Uri.TryCreate(finalEndpoint, UriKind.Absolute, out var endpointUri))
             {
                 httpClient = null;
+                hasInvalidEndpoint = true;
                 return;
             }
 
