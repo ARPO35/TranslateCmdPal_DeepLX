@@ -1,4 +1,4 @@
-﻿using TranslateCmdPal.Enum;
+using TranslateCmdPal.Enums;
 
 
 namespace TranslateCmdPal.Util
@@ -41,3 +41,4 @@ namespace TranslateCmdPal.Util
         }
     }
 }
+

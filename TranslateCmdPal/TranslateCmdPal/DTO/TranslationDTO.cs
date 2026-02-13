@@ -5,9 +5,9 @@ namespace TranslateCmdPal.DTO
     public class TranslationDTO
     {
         [JsonPropertyName("detected_source_language")]
-        public string DetectedSourceLanguage { get; set; }
+        public string DetectedSourceLanguage { get; set; } = string.Empty;
 
         [JsonPropertyName("text")]
-        public string Text { get; set; }
+        public string Text { get; set; } = string.Empty;
     }
 }

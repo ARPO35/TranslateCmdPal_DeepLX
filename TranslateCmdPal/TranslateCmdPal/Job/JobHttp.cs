@@ -1,5 +1,5 @@
 using TranslateCmdPal.DTO;
-using TranslateCmdPal.Enum;
+using TranslateCmdPal.Enums;
 
 using System;
 using System.Net;
@@ -182,3 +182,4 @@ namespace TranslateCmdPal.Job
         }
     }
 }
+

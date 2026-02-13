@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using TranslateCmdPal.DTO;
-using TranslateCmdPal.Enum;
+using TranslateCmdPal.Enums;
 using TranslateCmdPal.Job;
 using TranslateCmdPal.Model;
 using TranslateCmdPal.Util;
@@ -21,7 +21,7 @@ internal sealed partial class TranslateCmdPalPage : DynamicListPage, IDisposable
 {
     private List<ListItem> _allItems;
     private readonly SettingsManager _settingsManager;
-    private static Task<TranslationResultDTO> translationTask = null;
+    private static Task<TranslationResultDTO>? translationTask;
 
     public TranslateCmdPalPage(SettingsManager settingsManager)
     {
@@ -97,3 +97,4 @@ internal sealed partial class TranslateCmdPalPage : DynamicListPage, IDisposable
         GC.SuppressFinalize(this);
     }
 }
+

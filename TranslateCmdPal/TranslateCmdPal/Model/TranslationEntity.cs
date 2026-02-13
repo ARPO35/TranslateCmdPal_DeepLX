@@ -6,16 +6,16 @@ namespace TranslateCmdPal.Model
     public class TranslationEntity
     {
         [JsonPropertyName(nameof(OriginalText))]
-        public string OriginalText { get; set; }
+        public string OriginalText { get; set; } = string.Empty;
 
         [JsonPropertyName(nameof(TranslatedText))]
-        public string TranslatedText { get; set; }
+        public string TranslatedText { get; set; } = string.Empty;
 
         [JsonPropertyName(nameof(OriginalLangCode))]
-        public string OriginalLangCode { get; set; }
+        public string OriginalLangCode { get; set; } = string.Empty;
 
         [JsonPropertyName(nameof(TargetLangCode))]
-        public string TargetLangCode { get; set; }
+        public string TargetLangCode { get; set; } = string.Empty;
 
         [JsonPropertyName(nameof(Timestamp))]
         public DateTime Timestamp { get; set; }

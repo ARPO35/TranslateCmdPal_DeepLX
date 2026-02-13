@@ -1,4 +1,4 @@
-﻿using TranslateCmdPal.Enum;
+using TranslateCmdPal.Enums;
 using TranslateCmdPal.Model;
 
 using Microsoft.CommandPalette.Extensions.Toolkit;
@@ -296,3 +296,4 @@ namespace TranslateCmdPal.Util
         }
     }
 }
+
