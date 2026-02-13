@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Nodes;
 using System.Text.Json;
 
 namespace TranslateCmdPal.Util
@@ -16,6 +17,7 @@ namespace TranslateCmdPal.Util
         private readonly string _historyPath;
 
         private static readonly string _namespace = "translate-cmdpal";
+        private const string LegacyDeepLApiKeySettingName = "translate-cmdpal.DeepLAPIKey";
 
         private static string Namespaced(string propertyName) => $"{_namespace}.{propertyName}";
 
@@ -48,17 +50,20 @@ namespace TranslateCmdPal.Util
             Properties.Resource.plugin_default_target_language_code_description,
             _targetLangChoices);
 
-        private readonly TextSetting _apiKey = new(
-            Namespaced(nameof(DeepLAPIKey)),
+        private readonly TextSetting _deepLXEndpoint = new(
+            Namespaced(nameof(DeepLXEndpoint)),
             Properties.Resource.plugin_deepL_api_key,
             Properties.Resource.plugin_deepL_api_key,
-            "DeepL-Auth-Key {API KEY}");
+            "http://127.0.0.1:1188/translate");
 
         public string ShowHistory => _showHistory.Value ?? string.Empty;
 
         public string DefaultTargetLang => _targetLang.Value ?? string.Empty;
 
-        public string DeepLAPIKey => _apiKey.Value ?? string.Empty;
+        public string DeepLXEndpoint => _deepLXEndpoint.Value ?? string.Empty;
+
+        // Backward-compatible alias for call sites not migrated yet.
+        public string DeepLAPIKey => DeepLXEndpoint;
 
 
         internal static string SettingsJsonPath()
@@ -182,11 +187,60 @@ namespace TranslateCmdPal.Util
 
             Settings.Add(_showHistory);
             Settings.Add(_targetLang);
-            Settings.Add(_apiKey);
+            Settings.Add(_deepLXEndpoint);
 
             LoadSettings();
+            MigrateLegacyDeepLApiKeyToEndpoint();
 
             Settings.SettingsChanged += (s, a) => SaveSettings();
+        }
+
+        private void MigrateLegacyDeepLApiKeyToEndpoint()
+        {
+            if (!string.IsNullOrWhiteSpace(DeepLXEndpoint))
+            {
+                return;
+            }
+
+            var legacyValue = TryReadLegacySettingValue(FilePath, LegacyDeepLApiKeySettingName);
+            if (string.IsNullOrWhiteSpace(legacyValue))
+            {
+                return;
+            }
+
+            _deepLXEndpoint.Value = legacyValue.Trim();
+            SaveSettings();
+        }
+
+        private static string? TryReadLegacySettingValue(string settingsPath, string settingName)
+        {
+            try
+            {
+                if (!File.Exists(settingsPath))
+                {
+                    return null;
+                }
+
+                var content = File.ReadAllText(settingsPath);
+                var root = JsonNode.Parse(content) as JsonObject;
+                if (root == null)
+                {
+                    return null;
+                }
+
+                if (root.TryGetPropertyValue(settingName, out var settingNode) &&
+                    settingNode is JsonValue jsonValue &&
+                    jsonValue.TryGetValue<string>(out var value))
+                {
+                    return value;
+                }
+            }
+            catch (Exception ex)
+            {
+                ExtensionHost.LogMessage(new LogMessage() { Message = $"Failed to read legacy DeepL setting: {ex}" });
+            }
+
+            return null;
         }
 
         private void ClearHistory()
