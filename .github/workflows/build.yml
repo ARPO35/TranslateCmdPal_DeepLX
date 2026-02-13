@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2022
     strategy:
       fail-fast: false
       matrix:
@@ -29,8 +29,25 @@ jobs:
       - name: Restore
         run: dotnet restore TranslateCmdPal/TranslateCmdPal.sln
 
+      - name: Detect installed UAP SDK
+        shell: pwsh
+        run: |
+          $uapRoot = "C:\Program Files (x86)\Windows Kits\10\Platforms\UAP"
+          if (-not (Test-Path $uapRoot)) {
+            throw "UAP SDK root not found: $uapRoot"
+          }
+          $sdk = Get-ChildItem $uapRoot -Directory |
+            Where-Object { Test-Path (Join-Path $_.FullName "Platform.xml") } |
+            Sort-Object Name -Descending |
+            Select-Object -First 1
+          if (-not $sdk) {
+            throw "No UAP SDK with Platform.xml found under $uapRoot"
+          }
+          "TARGET_PLATFORM_VERSION=$($sdk.Name)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Write-Host "Using UAP SDK version: $($sdk.Name)"
+
       - name: Build
-        run: dotnet build TranslateCmdPal/TranslateCmdPal.sln -c ${{ matrix.configuration }} -p:Platform=${{ matrix.platform }} -p:PublishSingleFile=false --no-restore
+        run: dotnet build TranslateCmdPal/TranslateCmdPal.sln -c ${{ matrix.configuration }} -p:Platform=${{ matrix.platform }} -p:TargetPlatformVersion=${{ env.TARGET_PLATFORM_VERSION }} -p:PublishSingleFile=false --no-restore
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
