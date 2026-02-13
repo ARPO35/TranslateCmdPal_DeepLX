@@ -17,7 +17,7 @@ namespace TranslateCmdPal.Util
         private readonly string _historyPath;
 
         private static readonly string _namespace = "translate-cmdpal";
-        private const string LegacyDeepLApiKeySettingName = "translate-cmdpal.DeepLAPIKey";
+        private const string LegacyApiKeySettingName = "translate-cmdpal.DeepLAPIKey";
 
         private static string Namespaced(string propertyName) => $"{_namespace}.{propertyName}";
 
@@ -52,8 +52,8 @@ namespace TranslateCmdPal.Util
 
         private readonly TextSetting _deepLXEndpoint = new(
             Namespaced(nameof(DeepLXEndpoint)),
-            Properties.Resource.plugin_deepL_api_key,
-            Properties.Resource.plugin_deepL_api_key,
+            Properties.Resource.plugin_deepLX_endpoint,
+            Properties.Resource.plugin_deepLX_endpoint,
             "http://127.0.0.1:1188/translate");
 
         public string ShowHistory => _showHistory.Value ?? string.Empty;
@@ -61,9 +61,6 @@ namespace TranslateCmdPal.Util
         public string DefaultTargetLang => _targetLang.Value ?? string.Empty;
 
         public string DeepLXEndpoint => _deepLXEndpoint.Value ?? string.Empty;
-
-        // Backward-compatible alias for call sites not migrated yet.
-        public string DeepLAPIKey => DeepLXEndpoint;
 
 
         internal static string SettingsJsonPath()
@@ -190,19 +187,19 @@ namespace TranslateCmdPal.Util
             Settings.Add(_deepLXEndpoint);
 
             LoadSettings();
-            MigrateLegacyDeepLApiKeyToEndpoint();
+            MigrateLegacyApiSettingToEndpoint();
 
             Settings.SettingsChanged += (s, a) => SaveSettings();
         }
 
-        private void MigrateLegacyDeepLApiKeyToEndpoint()
+        private void MigrateLegacyApiSettingToEndpoint()
         {
             if (!string.IsNullOrWhiteSpace(DeepLXEndpoint))
             {
                 return;
             }
 
-            var legacyValue = TryReadLegacySettingValue(FilePath, LegacyDeepLApiKeySettingName);
+            var legacyValue = TryReadLegacySettingValue(FilePath, LegacyApiKeySettingName);
             if (string.IsNullOrWhiteSpace(legacyValue))
             {
                 return;
@@ -237,7 +234,7 @@ namespace TranslateCmdPal.Util
             }
             catch (Exception ex)
             {
-                ExtensionHost.LogMessage(new LogMessage() { Message = $"Failed to read legacy DeepL setting: {ex}" });
+                ExtensionHost.LogMessage(new LogMessage() { Message = $"Failed to read legacy endpoint setting: {ex}" });
             }
 
             return null;

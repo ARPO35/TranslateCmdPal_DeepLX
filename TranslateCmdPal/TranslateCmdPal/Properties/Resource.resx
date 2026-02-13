@@ -141,13 +141,9 @@
   <data name="history_none" xml:space="preserve">
     <value>none</value>
   </data>
-  <data name="invalid_api_key" xml:space="preserve">
-    <value>Invalid API key. Please check the API key</value>
-  </data>
-  <data name="plugin_deepL_api_key" xml:space="preserve">
-    <value>API Key
-Please enter the following format
-DeepL-Auth-Key {API KEY}</value>
+  <data name="plugin_deepLX_endpoint" xml:space="preserve">
+    <value>DeepLX Endpoint
+Enter the full endpoint URL (for example: http://127.0.0.1:1188/translate)</value>
   </data>
   <data name="plugin_default_target_language_code_description" xml:space="preserve">
     <value>The target language to use as the default.</value>
