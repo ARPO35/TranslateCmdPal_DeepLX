@@ -12,17 +12,18 @@ namespace TranslateCmdPal.Job
 {
     public class JobHttp
     {
-        private static HttpClient httpClient;
-        private static string oldAPIKey;
+        private static HttpClient? httpClient;
+        private static string? oldEndpoint;
         private const int MaxRetries = 3;
         private const int InitialRetryDelayMs = 1000;
         private static readonly Random Random = new Random();
+        private const string DefaultDeepLXEndpoint = "http://127.0.0.1:1188/translate";
 
-        public static async Task<TranslationResultDTO> Translation(LangCode.Code targetCode, string text, string apiKey)
+        public static async Task<TranslationResultDTO> Translation(LangCode.Code targetCode, string text, string endpoint)
         {
-            if (httpClient == null || oldAPIKey != apiKey)
+            if (httpClient == null || oldEndpoint != endpoint)
             {
-                Init(apiKey);
+                Init(endpoint);
             }
 
             if (httpClient != null)
@@ -34,7 +35,8 @@ namespace TranslateCmdPal.Job
                     {
                         object body = new
                         {
-                            text = new string[] { text },
+                            text,
+                            source_lang = "auto",
                             target_lang = LangCode.ToString(targetCode)
                         };
 
@@ -44,25 +46,27 @@ namespace TranslateCmdPal.Job
                             "application/json"
                         );
 
-                        HttpResponseMessage response = await httpClient.PostAsync("translate", jsonContent);
+                        HttpResponseMessage response = await httpClient.PostAsync(string.Empty, jsonContent);
 
                         if (response.IsSuccessStatusCode)
                         {
                             string responseString = await response.Content.ReadAsStringAsync();
                             if (responseString != null)
                             {
-                                var result = JsonSerializer.Deserialize<TranslationResultDTO>(responseString);
+                                var deepLxResult = JsonSerializer.Deserialize<DeepLXTranslationResultDTO>(responseString);
+                                var result = ToTranslationResult(deepLxResult, targetCode);
                                 if (result != null)
                                 {
-                                    result.TargetLangCode = LangCode.ToString(targetCode);
                                     return result;
                                 }
                             }
                         }
 
-                        if (response.StatusCode == HttpStatusCode.Forbidden)
+                        if (response.StatusCode == HttpStatusCode.Forbidden ||
+                            response.StatusCode == HttpStatusCode.Unauthorized ||
+                            response.StatusCode == HttpStatusCode.NotFound)
                         {
-                            return CreateErrorResult(Properties.Resource.invalid_api_key, targetCode);
+                            return CreateErrorResult(Properties.Resource.invalid_endpoint, targetCode);
                         }
                         else if (response.StatusCode == HttpStatusCode.TooManyRequests)
                         {
@@ -95,6 +99,31 @@ namespace TranslateCmdPal.Job
             return CreateErrorResult(Properties.Resource.error_message_during_translation, targetCode);
         }
 
+        private static TranslationResultDTO? ToTranslationResult(DeepLXTranslationResultDTO? deepLxResult, LangCode.Code targetCode)
+        {
+            if (deepLxResult == null || string.IsNullOrWhiteSpace(deepLxResult.Data))
+            {
+                return null;
+            }
+
+            return new TranslationResultDTO
+            {
+                TargetLangCode = string.IsNullOrWhiteSpace(deepLxResult.TargetLang)
+                    ? LangCode.ToString(targetCode)
+                    : deepLxResult.TargetLang,
+                Translations =
+                [
+                    new TranslationDTO
+                    {
+                        DetectedSourceLanguage = string.IsNullOrWhiteSpace(deepLxResult.SourceLang)
+                            ? LangCode.ToString(LangCode.Code.UNK)
+                            : deepLxResult.SourceLang,
+                        Text = deepLxResult.Data
+                    }
+                ]
+            };
+        }
+
         private static TranslationResultDTO CreateErrorResult(string message, LangCode.Code targetCode)
         {
             return new TranslationResultDTO
@@ -119,16 +148,25 @@ namespace TranslateCmdPal.Job
         }
 
 
-        private static void Init(string apiKey)
+        private static void Init(string endpoint)
         {
-            oldAPIKey = apiKey;
+            oldEndpoint = endpoint;
+
+            string finalEndpoint = string.IsNullOrWhiteSpace(endpoint)
+                ? DefaultDeepLXEndpoint
+                : endpoint.Trim();
+
+            if (!Uri.TryCreate(finalEndpoint, UriKind.Absolute, out var endpointUri))
+            {
+                httpClient = null;
+                return;
+            }
 
             httpClient = new HttpClient
             {
-                BaseAddress = new Uri("https://api-free.deepl.com/v2/"),
+                BaseAddress = endpointUri,
                 Timeout = TimeSpan.FromMinutes(2)
             };
-            httpClient.DefaultRequestHeaders.Add("Authorization", apiKey);
         }
     }
 }

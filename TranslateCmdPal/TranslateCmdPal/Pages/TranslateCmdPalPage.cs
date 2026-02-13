@@ -55,7 +55,7 @@ internal sealed partial class TranslateCmdPalPage : DynamicListPage, IDisposable
 
         try
         {
-            translationTask = JobHttp.Translation(targetCode, text, _settingsManager.DeepLAPIKey);
+            translationTask = JobHttp.Translation(targetCode, text, _settingsManager.DeepLXEndpoint);
             var result = await translationTask;
 
             _allItems.Clear();
