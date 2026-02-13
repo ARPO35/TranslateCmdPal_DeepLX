@@ -30,7 +30,7 @@ jobs:
         run: dotnet restore TranslateCmdPal/TranslateCmdPal.sln
 
       - name: Build
-        run: dotnet build TranslateCmdPal/TranslateCmdPal.sln -c ${{ matrix.configuration }} -p:Platform=${{ matrix.platform }} --no-restore
+        run: dotnet build TranslateCmdPal/TranslateCmdPal.sln -c ${{ matrix.configuration }} -p:Platform=${{ matrix.platform }} -p:PublishSingleFile=false --no-restore
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
