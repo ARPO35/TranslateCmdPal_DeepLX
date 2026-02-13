@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 
-namespace TranslateCmdPal.Model
+namespace TranslateDeepLXCmdPal.Model
 {
     public class TranslationEntity
     {
@@ -21,3 +21,4 @@ namespace TranslateCmdPal.Model
         public DateTime Timestamp { get; set; }
     }
 }
+

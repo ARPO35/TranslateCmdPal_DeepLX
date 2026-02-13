@@ -2,11 +2,11 @@
 // The Microsoft Corporation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using TranslateCmdPal.DTO;
-using TranslateCmdPal.Enums;
-using TranslateCmdPal.Job;
-using TranslateCmdPal.Model;
-using TranslateCmdPal.Util;
+using TranslateDeepLXCmdPal.DTO;
+using TranslateDeepLXCmdPal.Enums;
+using TranslateDeepLXCmdPal.Job;
+using TranslateDeepLXCmdPal.Model;
+using TranslateDeepLXCmdPal.Util;
 
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
@@ -15,18 +15,18 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace TranslateCmdPal;
+namespace TranslateDeepLXCmdPal;
 
-internal sealed partial class TranslateCmdPalPage : DynamicListPage, IDisposable
+internal sealed partial class TranslateDeepLXCmdPalPage : DynamicListPage, IDisposable
 {
     private List<ListItem> _allItems;
     private readonly SettingsManager _settingsManager;
     private static Task<TranslationResultDTO>? translationTask;
 
-    public TranslateCmdPalPage(SettingsManager settingsManager)
+    public TranslateDeepLXCmdPalPage(SettingsManager settingsManager)
     {
         Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
-        Title = "TranslateCmdPal";
+        Title = "TranslateDeepLXCmdPal";
         Name = "Open";
         _settingsManager = settingsManager;
         _allItems = _settingsManager.LoadHistory();
@@ -97,4 +97,5 @@ internal sealed partial class TranslateCmdPalPage : DynamicListPage, IDisposable
         GC.SuppressFinalize(this);
     }
 }
+
 

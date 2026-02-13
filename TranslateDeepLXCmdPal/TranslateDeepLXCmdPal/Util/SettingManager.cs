@@ -1,5 +1,5 @@
-using TranslateCmdPal.Enums;
-using TranslateCmdPal.Model;
+using TranslateDeepLXCmdPal.Enums;
+using TranslateDeepLXCmdPal.Model;
 
 using Microsoft.CommandPalette.Extensions.Toolkit;
 
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-namespace TranslateCmdPal.Util
+namespace TranslateDeepLXCmdPal.Util
 {
     public class SettingsManager : JsonSettingsManager
     {
@@ -306,4 +306,5 @@ namespace TranslateCmdPal.Util
         }
     }
 }
+
 

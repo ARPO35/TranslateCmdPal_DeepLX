@@ -1,5 +1,5 @@
-using TranslateCmdPal.DTO;
-using TranslateCmdPal.Enums;
+using TranslateDeepLXCmdPal.DTO;
+using TranslateDeepLXCmdPal.Enums;
 
 using System;
 using System.Net;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace TranslateCmdPal.Job
+namespace TranslateDeepLXCmdPal.Job
 {
     public class JobHttp
     {
@@ -182,4 +182,5 @@ namespace TranslateCmdPal.Job
         }
     }
 }
+
 

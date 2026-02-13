@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace TranslateCmdPal.Enums
+namespace TranslateDeepLXCmdPal.Enums
 {
     public class LangCode
     {
@@ -109,3 +109,4 @@ namespace TranslateCmdPal.Enums
         }
     }
 }
+

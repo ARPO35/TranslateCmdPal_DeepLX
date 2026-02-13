@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace TranslateCmdPal.DTO
+namespace TranslateDeepLXCmdPal.DTO
 {
     public class TranslationResultDTO
     {
@@ -12,3 +12,4 @@ namespace TranslateCmdPal.DTO
         public List<TranslationDTO> Translations { get; set; } = [];
     }
 }
+

@@ -5,24 +5,24 @@
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 
-using TranslateCmdPal.Util;
+using TranslateDeepLXCmdPal.Util;
 
-namespace TranslateCmdPal;
+namespace TranslateDeepLXCmdPal;
 
-public partial class TranslateCmdPalCommandsProvider : CommandProvider
+public partial class TranslateDeepLXCmdPalCommandsProvider : CommandProvider
 {
     private readonly ICommandItem[] _commands;
     private readonly SettingsManager _settingsManager = new();
 
 
-    public TranslateCmdPalCommandsProvider()
+    public TranslateDeepLXCmdPalCommandsProvider()
     {
-        DisplayName = "TranslateCmdPal";
+        DisplayName = "TranslateDeepLXCmdPal";
         Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
         Settings = _settingsManager.Settings;
 
         _commands = [
-            new CommandItem(new TranslateCmdPalPage(_settingsManager)){
+            new CommandItem(new TranslateDeepLXCmdPalPage(_settingsManager)){
                 Title = DisplayName,
                 MoreCommands =
                 [
@@ -37,3 +37,4 @@ public partial class TranslateCmdPalCommandsProvider : CommandProvider
         return _commands;
     }
 }
+

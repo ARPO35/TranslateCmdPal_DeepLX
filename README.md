@@ -1,4 +1,4 @@
-# TranslateCmdPal (DeepLX Version)
+# TranslateDeepLXCmdPal (DeepLX Version)
 
 > [!IMPORTANT]
 > **This is a fork of [TranslateCmdPal](https://github.com/patcher454/TranslateCmdPal).**
@@ -35,7 +35,7 @@ Before you begin, ensure you have the following:
 ## 🚀 Installation & Setup
 
 1.  **Install the Plugin**
-    -   Download and install the latest release of this modified TranslateCmdPal.
+    -   Download and install the latest release of this modified TranslateDeepLXCmdPal.
 
 2.  **Configure DeepLX Endpoint**
     -   Open the plugin settings in PowerToys.
@@ -50,7 +50,7 @@ Before you begin, ensure you have the following:
 
 1.  **Open Command palette**
     -   Press `Win` + `Alt` + `Space` to launch the Command palette window.
-2.  **Run TranslateCmdPal from the list**
+2.  **Run TranslateDeepLXCmdPal from the list**
 3.  **Enter Your Translation Query**
     -   **Format**: `{target_language_code} {text_to_translate}`
         -   **To specify a language:**
@@ -89,3 +89,4 @@ This is a list of languages supported by DeepL (via DeepLX).
 | `id` | Indonesian | `sl` | Slovenian |
 | `sv` | Swedish | `tr` | Turkish |
 | `uk` | Ukrainian | `zh` | Chinese (simplified) |
+

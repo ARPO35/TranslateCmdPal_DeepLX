@@ -1,6 +1,6 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
-namespace TranslateCmdPal.DTO
+namespace TranslateDeepLXCmdPal.DTO
 {
     public class TranslationDTO
     {
@@ -11,3 +11,4 @@ namespace TranslateCmdPal.DTO
         public string Text { get; set; } = string.Empty;
     }
 }
+

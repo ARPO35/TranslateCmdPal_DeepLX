@@ -8,16 +8,16 @@ using System.Threading;
 
 using Microsoft.CommandPalette.Extensions;
 
-namespace TranslateCmdPal;
+namespace TranslateDeepLXCmdPal;
 
 [Guid("3c68b3bf-72b5-488d-8591-7aba53f82054")]
-public sealed partial class TranslateCmdPal : IExtension, IDisposable
+public sealed partial class TranslateDeepLXCmdPal : IExtension, IDisposable
 {
     private readonly ManualResetEvent _extensionDisposedEvent;
 
-    private readonly TranslateCmdPalCommandsProvider _provider = new();
+    private readonly TranslateDeepLXCmdPalCommandsProvider _provider = new();
 
-    public TranslateCmdPal(ManualResetEvent extensionDisposedEvent)
+    public TranslateDeepLXCmdPal(ManualResetEvent extensionDisposedEvent)
     {
         this._extensionDisposedEvent = extensionDisposedEvent;
     }
@@ -33,3 +33,4 @@ public sealed partial class TranslateCmdPal : IExtension, IDisposable
 
     public void Dispose() => this._extensionDisposedEvent.Set();
 }
+

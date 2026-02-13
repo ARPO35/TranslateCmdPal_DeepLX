@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace TranslateCmdPal.DTO
+namespace TranslateDeepLXCmdPal.DTO
 {
     public sealed class DeepLXTranslationResponseDTO
     {
@@ -17,3 +17,4 @@ namespace TranslateCmdPal.DTO
         public string? Message { get; set; }
     }
 }
+

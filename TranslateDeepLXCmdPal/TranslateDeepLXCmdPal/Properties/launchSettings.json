@@ -1,11 +1,12 @@
 {
   "profiles": {
-    "TranslateCmdPal (Package)": {
+    "TranslateDeepLXCmdPal (Package)": {
       "commandName": "MsixPackage",
       "doNotLaunchApp": true
     },
-    "TranslateCmdPal (Unpackaged)": {
+    "TranslateDeepLXCmdPal (Unpackaged)": {
       "commandName": "Project"
     }
   }
 }
+

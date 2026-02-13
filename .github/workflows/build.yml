@@ -27,7 +27,7 @@ jobs:
           dotnet-version: 9.0.x
 
       - name: Restore
-        run: dotnet restore TranslateCmdPal/TranslateCmdPal.sln
+        run: dotnet restore TranslateDeepLXCmdPal/TranslateDeepLXCmdPal.sln
 
       - name: Detect installed UAP SDK
         shell: pwsh
@@ -47,13 +47,14 @@ jobs:
           Write-Host "Using UAP SDK version: $($sdk.Name)"
 
       - name: Build
-        run: dotnet build TranslateCmdPal/TranslateCmdPal.sln -c ${{ matrix.configuration }} -p:Platform=${{ matrix.platform }} -p:TargetPlatformVersion=${{ env.TARGET_PLATFORM_VERSION }} -p:PublishSingleFile=false --no-restore
+        run: dotnet build TranslateDeepLXCmdPal/TranslateDeepLXCmdPal.sln -c ${{ matrix.configuration }} -p:Platform=${{ matrix.platform }} -p:TargetPlatformVersion=${{ env.TARGET_PLATFORM_VERSION }} -p:PublishSingleFile=false --no-restore
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: TranslateCmdPal-${{ matrix.configuration }}-${{ matrix.platform }}
+          name: TranslateDeepLXCmdPal-${{ matrix.configuration }}-${{ matrix.platform }}
           path: |
-            TranslateCmdPal/TranslateCmdPal/bin/${{ matrix.platform }}/${{ matrix.configuration }}/
-            TranslateCmdPal/TranslateCmdPal/AppPackages/
+            TranslateDeepLXCmdPal/TranslateDeepLXCmdPal/bin/${{ matrix.platform }}/${{ matrix.configuration }}/
+            TranslateDeepLXCmdPal/TranslateDeepLXCmdPal/AppPackages/
           if-no-files-found: warn
+

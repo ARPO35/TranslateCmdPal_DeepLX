@@ -1,11 +1,11 @@
-﻿using TranslateCmdPal.Model;
+using TranslateDeepLXCmdPal.Model;
 
 using Microsoft.CommandPalette.Extensions.Toolkit;
 
 using System;
 using System.Threading.Tasks;
 
-namespace TranslateCmdPal.Util
+namespace TranslateDeepLXCmdPal.Util
 {
 
     public partial class ResultCopyCommand : InvokableCommand
@@ -52,3 +52,4 @@ namespace TranslateCmdPal.Util
         }
     }
 }
+

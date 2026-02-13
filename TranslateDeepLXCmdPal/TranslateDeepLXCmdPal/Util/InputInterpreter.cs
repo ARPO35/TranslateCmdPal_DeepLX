@@ -1,7 +1,7 @@
-using TranslateCmdPal.Enums;
+using TranslateDeepLXCmdPal.Enums;
 
 
-namespace TranslateCmdPal.Util
+namespace TranslateDeepLXCmdPal.Util
 {
     public class InputInterpreter
     {
@@ -41,4 +41,5 @@ namespace TranslateCmdPal.Util
         }
     }
 }
+
 
